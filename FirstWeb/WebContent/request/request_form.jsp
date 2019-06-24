@@ -45,7 +45,7 @@ input[type=text] {
 			</tr>
 			<tr>
 				<td>직업</td>
-				<td><select>
+				<td><select name="job">
 						<option value="none">무직</option>
 						<option value="g">ㄱ직</option>
 						<option value="n">ㄴ직</option>

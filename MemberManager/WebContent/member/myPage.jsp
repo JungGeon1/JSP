@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:useBean id="loginInfo" class="member.UserInfo" scope="session" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style></style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
-<style>
-</style>
 </head>
 <body>
 
@@ -22,24 +22,16 @@
 
 	<!-- 컨텐츠 시작 -->
 	<div id="contents">
-		<h3>로그인 페이지</h3>
+		<h3>회워정보 페이지</h3>
 		<hr>
-		<form action="loginProcess.jsp" method="post">
-			<table>
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="uId"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" name="uPW"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" value="로그인"></td>
-				</tr>
-			</table>
-		</form>
+
+		<h3>
+			<%=loginInfo%><br>
+			아이디:<%=loginInfo.getuId() %><br>
+			비밀번호<%=loginInfo.getuPw() %>
+		</h3>
+
+
 	</div>
 	<!-- 컨텐츠 끝 -->
 
@@ -47,13 +39,6 @@
 	<!-- 푸터 시작 -->
 	<%@ include file="../frame/footer.jsp"%>
 	<!-- 푸터 끝 -->
-
-
-
-
-
-
-
 
 
 </body>
