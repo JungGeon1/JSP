@@ -8,19 +8,19 @@
 
 	boolean chk = false;
 
-	if ( id!=null&&id.equals(pw)) {
+	if (id != null && id.equals(pw)) {
 		//z쿠키생성 : 사용자데이터를 저장
-	
-		Cookie c1 = CookieBox.createCookie("LOGIN", "SUCESS",-1);
+
+		Cookie c1 = CookieBox.createCookie("LOGIN", "SUCESS", -1);
 		response.addCookie(c1);
-		Cookie c2 = CookieBox.createCookie("ID", id,-1);
+		Cookie c2 = CookieBox.createCookie("ID", id, -1);
 		response.addCookie(c2);
 		chk = true;
-
-	 	if(null!=chkbox&&chkbox.equals("on")){
-			Cookie c3 = CookieBox.createCookie("LOGIN", "SUCESS", 60*60);
+		//체크가 온이면 쿠키 유지시간을 1시간으로
+		if (null != chkbox && chkbox.equals("on")) {
+			Cookie c3 = CookieBox.createCookie("LOGIN", "SUCESS", 60 * 60);
 			response.addCookie(c3);
-			Cookie c4 = CookieBox.createCookie("ID", id, 60*60);
+			Cookie c4 = CookieBox.createCookie("ID", id, 60 * 60);
 			response.addCookie(c4);
 			chk = true;
 		}
@@ -37,7 +37,8 @@
 </head>
 <body>
 
-<h3>체크값확인용:<%=chkbox %></h3>
+	<h3>
+		체크값확인용:<%=chkbox%></h3>
 	<%
 		if (chk) {
 			out.println("<h1>로그인 되었습니다.</h1>");

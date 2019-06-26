@@ -22,7 +22,7 @@
 	<form action="login.jsp" method="post" >
 		<h1>로그인</h1>
 		<hr>
-
+                                         
 		아이디 <input type="text" name="id" value="<%=uId%>"> <br> 비밀번호 <input
 			type="text" name="pw"> <br> 아이디저장하기<input
 			type="checkbox" name="chk" value="on"><br> <input
