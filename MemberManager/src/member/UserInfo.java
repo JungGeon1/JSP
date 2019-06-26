@@ -58,5 +58,29 @@ public class UserInfo {
 	public String toString() {
 		return "UserInfo [uId=" + uId + ", uPw=" + uPw + ", uName=" + uName + ", uPhoto=" + uPhoto + "]";
 	}
+//memberinfo객체->loginInfo 개겣반환
+	
+	// 화면 결과 출력을 위한 HTML 코드 반환
+	public String makeHtmlDiv() {
+		String str = "";
+		
+		str += "<div class=\"mInfor\"> \n";
+		str += "	<h3> \n";
+		str += "		" + uId + "("+ uName +")\n";
+		str += "	</h3> \n";
+		str += "	<p> \n";
+		str += "		"+ uPw;
+		str += "	</p> \n";
+		str += "</div> \n";
+		
+		
+		
+		return str;
+	}
+	
+	public LoginInfo toLoginInfo() {
 
+		return new LoginInfo(uId, uName, uPhoto);
+	}
+	
 }

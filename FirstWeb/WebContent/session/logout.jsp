@@ -10,7 +10,8 @@
 </head>
 <body>
 	<%
-		request.getSession(false).invalidate();
+		//request.getSession(false).invalidate();
+	session.invalidate();
 	%>
 	<h1>로그아웃되었습니다</h1>
 	<a href="viewsession.jsp">view session1</a>
