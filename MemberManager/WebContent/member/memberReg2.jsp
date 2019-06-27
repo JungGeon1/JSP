@@ -15,6 +15,7 @@
     
     //내장객체에 회원정보를 저장
     application.setAttribute(userInfo.getuId(), userInfo);
+ 
     
     %>
     
@@ -47,7 +48,10 @@
 <div id="contents">
 	<h3>회원가입 페이지</h3>
 	<hr>
+	
 	<%= userInfo.makeHtmlDiv() %>
+<!-- el표현식으로 변환 -->
+	${userInfo.makeHtmlDiv()}
 </div>
 <!-- 컨텐츠 끝 -->
 

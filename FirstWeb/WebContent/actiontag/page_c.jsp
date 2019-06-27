@@ -12,6 +12,7 @@
 </head>
 <body>
 	<h1>
+		c-page
 		<%-- 	Page_c.jsp 에서 만들어진 응답 결과 <br> no 파라미터의 값 :
 		<%=request.getParameter("num")%>
 		<br> uname 파라미터의 값 :
@@ -25,6 +26,9 @@
 		<%=request.getParameter("num")%>
 		<br> uname 파라미터의 값 :
 		<%=request.getParameter("username")%> --%>
+		pageType=${pageType} <br>
+		no=${pNo}<br>
+		uName=${userName}<br>
 		<%
 			Member member = (Member) request.getAttribute("result");
 		%>

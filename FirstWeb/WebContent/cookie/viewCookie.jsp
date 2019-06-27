@@ -14,6 +14,11 @@
 </head>
 <body>
 	<h1>Cookie Date</h1>
+	<h3>EL을 이용한 cookie 참조</h3>
+	<h4>name:${cookie.name.value}</h4>
+	<h4>id:${cookie.id.value}</h4>
+	<h4>email:${cookie.type.value}</h4>
+	<hr>
 	<%
 		if (cookies != null && cookies.length > 0) {
 			for (int i = 0; i < cookies.length; i++) {
