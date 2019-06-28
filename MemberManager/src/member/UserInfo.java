@@ -13,13 +13,13 @@ public class UserInfo {
 		this.regdate=new Date();
 	}
 
-	public UserInfo(String uId, String uPw, String uName, String uPhoto, Date regdate) {
+	public UserInfo(String uId, String uPw, String uName, String uPhoto) {
 		super();
 		this.uId = uId;
 		this.uPw = uPw;
 		this.uName = uName;
 		this.uPhoto = uPhoto;
-		this.regdate = regdate;
+		this.regdate = new Date();
 	}
 
 	public String getuId() {
@@ -60,6 +60,14 @@ public class UserInfo {
 	}
 //memberinfo객체->loginInfo 개겣반환
 	
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
 	// 화면 결과 출력을 위한 HTML 코드 반환
 	public String makeHtmlDiv() {
 		String str = "";

@@ -6,6 +6,7 @@
     request.setCharacterEncoding("utf-8");
     %>
     <jsp:useBean id="userInfo" class="member.UserInfo"/>
+    <!-- 생성된 객체에 데이터 바인딩 : 폼의 name 속성과 beans 클래스의 변수 이름이 동일해야한다 !!!!!  -->
     <jsp:setProperty property="*" name="userInfo"/>
     
     <%
@@ -49,9 +50,10 @@
 	<h3>회원가입 페이지</h3>
 	<hr>
 	
-	<%= userInfo.makeHtmlDiv() %>
+ <%= userInfo.makeHtmlDiv() %>
 <!-- el표현식으로 변환 -->
-	${userInfo.makeHtmlDiv()}
+	${userInfo.makeHtmlDiv()}<br>
+
 </div>
 <!-- 컨텐츠 끝 -->
 
