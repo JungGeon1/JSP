@@ -80,7 +80,7 @@ public class UserInfo {
 	
 	public LoginInfo toLoginInfo() {
 
-		return new LoginInfo(uId, uName, uPhoto);
+		return new LoginInfo(uId, uName, uPhoto, regdate);
 	}
 	
 }
