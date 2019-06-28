@@ -42,7 +42,7 @@
 	%>
 	<script>
 	alert('아이디 혹은 비밀번호가 틀립니다.\n다시로그인해주세요');
-	history.gp(-1);
+	history.go(-1);
 	</script>
 	
 	<%
