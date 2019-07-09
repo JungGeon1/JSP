@@ -14,7 +14,7 @@
     	userInfo.setuPhoto("NoImage.png");
     }
     
-    //내장객체에 회원정보를 저장-> 아이디를 키값으로 하는 전체정보를 저장
+    //내장객체에 회원정보를 저장(유즈빈을 사용해서 가능 )-> 아이디를 키값으로 하는 전체정보를 저장
     application.setAttribute(userInfo.getuId(), userInfo);
  
     

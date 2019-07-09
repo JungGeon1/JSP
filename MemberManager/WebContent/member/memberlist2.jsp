@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	/*어플리케이션에 올라가있는 맵상태로 저장되어있는 키값들을 가져와서 이놈아!!!레이션에 저장해준다. */
+	/*어플리케이션에 올라가있는 맵상태로 저장되어있는 키값들을 가져와서 이너머!레이션에 저장해준다. */
 	Enumeration<String> e = application.getAttributeNames();
 	/*  저장된 레이션을 다시 어플리케이션의 올려준다 -> 사용하기위해*/
 	application.setAttribute("mListName", e);
