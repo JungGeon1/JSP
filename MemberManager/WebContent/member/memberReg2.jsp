@@ -1,3 +1,7 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -13,11 +17,30 @@
     if(userInfo.getuPhoto()==null){
     	userInfo.setuPhoto("NoImage.png");
     }
-    
-    //내장객체에 회원정보를 저장(유즈빈을 사용해서 가능 )-> 아이디를 키값으로 하는 전체정보를 저장
-    application.setAttribute(userInfo.getuId(), userInfo);
- 
-    
+    int resultcnt=0;
+    //커네션 
+    try{ Connection conn=null;
+
+    PreparedStatement pstmt=null;
+
+    //db로드
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    conn= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","tiger");
+   
+   	String sql="insert into userinfo(idx,mid,mpw,mname,mphoto) values(userinfo_idx_seq.nextval,?,?,?,?)";
+    pstmt=conn.prepareStatement(sql);
+    pstmt.setString(1, userInfo.getuId());
+    pstmt.setString(2, userInfo.getuPw());
+    pstmt.setString(3, userInfo.getuName());
+    pstmt.setString(4, userInfo.getuPhoto());
+    resultcnt=pstmt.executeUpdate();
+   
+   }catch(ClassNotFoundException e){
+	   e.printStackTrace();
+   }catch(SQLException s){
+	   s.printStackTrace();
+   }
+		
     %>
     
 <!DOCTYPE html>
@@ -50,9 +73,10 @@
 	<h3>회원가입 페이지</h3>
 	<hr>
 	
- <%= userInfo.makeHtmlDiv() %>
+
 <!-- el표현식으로 변환 -->
 	${userInfo.makeHtmlDiv()}<br>
+	<%=resultcnt %>개의 행이 추가되었습니다	
 
 </div>
 <!-- 컨텐츠 끝 -->
