@@ -56,7 +56,7 @@
 	<%
 		if (viewData.isEmpty()) {
 	%>
-	<h3>등록된 매새자거 없숩나더</h3>
+	<h3>등록된 메세지가 없습니다</h3>
 	<%
 		} else {
 			for (Message message : viewData.getMessageList()) {
@@ -65,7 +65,7 @@
 		메시지번호 :<%=message.getId() %><br>
 		손님 이름 :<%=message.getGuestName() %><br>
 		메시지 :<%=message.getMessage() %> <br>
-		<a href="#">삭제하기</a>
+		<a href="confirmDeletion.jsp?messageId=<%=message.getId()%>">삭제하기</a>
 	</div>
 	<%
 			}

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guestbook.model.Message;
+import jdbc.JdbcUtil;
 
 public class MessageDao {
 
@@ -21,6 +22,7 @@ public class MessageDao {
 	private MessageDao() {
 	}
 
+//db에 저장해주는 메소드
 	public int insert(Connection conn, Message message) {
 
 		int rcnt = 0;
@@ -52,6 +54,7 @@ public class MessageDao {
 		return rcnt;
 	}
 
+	// db에서 기본키값을 매개로 정보를 가져와 유즈빈에 저장해주는 메소드
 	public Message select(Connection conn, int messageId) {
 		Message message = new Message();
 		PreparedStatement pstmt = null;
@@ -85,7 +88,7 @@ public class MessageDao {
 
 		int totalCnt = 0;
 		// 데이터행의개수로 총 저장개수 반환
-		String sql = "select count(*) from guestbook_message ";
+		String sql = "select count(*) from guestbook_message  ";
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -101,6 +104,7 @@ public class MessageDao {
 		return totalCnt;
 	}
 
+	// 한 페이지에 보여줄 리스트를 구함
 	public List<Message> selectList(Connection conn, int firstRow, int endRow) {
 
 		List<Message> list = new ArrayList<Message>();
@@ -135,4 +139,22 @@ public class MessageDao {
 		}
 		return list;
 	}
+
+	public int deleteMessage(Connection conn, int messageId) throws SQLException {
+		int resultCnt=0;
+		// PreparedStatement 객체생성
+		PreparedStatement pstmt = null;
+
+		String sql = "delete from guestbook_message where message_id=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, messageId);
+			
+			resultCnt=pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		return resultCnt;
+	}
+
 }

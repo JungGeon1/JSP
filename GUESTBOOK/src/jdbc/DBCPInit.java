@@ -27,7 +27,7 @@ public class DBCPInit extends HttpServlet {
       // 커넥션 풀이 내부에서 사용할 jdbc드라이버를 로딩함
       try {
          Class.forName("oracle.jdbc.driver.OracleDriver");
-         System.out.println("데이터베이스 드라이버 로드 성공");
+         System.out.println("데이터베이스 드라이버 로드 성공 박수 짝 짝");
       } catch (ClassNotFoundException ex) {
          throw new RuntimeException("fail to load JDBC Driver", ex);
       }
@@ -71,7 +71,7 @@ public class DBCPInit extends HttpServlet {
          PoolingDriver driver = (PoolingDriver) DriverManager.getDriver("jdbc:apache:commons:dbcp:");
          //위에서 커넥션 풀 드라이버에 생성한 커넥션 풀을 등록한다. 이름은 chap14 이다.
          driver.registerPool("pool", connectionPool);
-         System.out.println("컨넥션 풀 등록 성공");
+         System.out.println("컨눼에엑셔어언!!풀!!! 등록! 성!공!.");
          
          } catch (Exception e) {
             throw new RuntimeException(e);
