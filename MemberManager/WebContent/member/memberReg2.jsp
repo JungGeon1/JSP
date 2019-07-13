@@ -1,3 +1,4 @@
+<%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -24,8 +25,8 @@
     PreparedStatement pstmt=null;
 
     //db로드
-    Class.forName("oracle.jdbc.driver.OracleDriver");
-    conn= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","tiger");
+  // Class.forName("oracle.jdbc.driver.OracleDriver");
+    conn= ConnectionProvider.getConnection();
    
    	String sql="insert into userinfo(idx,mid,mpw,mname,mphoto) values(userinfo_idx_seq.nextval,?,?,?,?)";
     pstmt=conn.prepareStatement(sql);
@@ -35,9 +36,9 @@
     pstmt.setString(4, userInfo.getuPhoto());
     resultcnt=pstmt.executeUpdate();
    
-   }catch(ClassNotFoundException e){
+   }/* catch(ClassNotFoundException e){
 	   e.printStackTrace();
-   }catch(SQLException s){
+   } */catch(SQLException s){
 	   s.printStackTrace();
    }
 		

@@ -32,7 +32,7 @@ public class LoginCheckFilter implements Filter {
 	/**
 	 * @see Filter#destroy()
 	 */
-	//필터를 사용하기위한 오버라이딩 없을경우 추상클래됌->현재는 dofilter만 사용
+	//필터가 웹컨테이너에서 삭제 될 떼 호출 ->필터를 사용하기위한 오버라이딩 없을경우 추상클래됌->현재는 dofilter만 사용
 	public void destroy() {
 	
 	}
@@ -52,7 +52,7 @@ public class LoginCheckFilter implements Filter {
 		//세션이 존재하면서 로그인이포가 널이 아니면 로그인 체크를 트루로 해서 필터를 통과
 		if(session!=null &&session.getAttribute("LoginInfo")!=null) {
 			loginChk=true;
-		//로그인체크가 트루면 실행
+		//로그인체크가 트루면 실행->
 		}if(loginChk) {
 			chain.doFilter(request, response);
 		}else {
@@ -70,6 +70,7 @@ public class LoginCheckFilter implements Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
+	//필터를 초기활 할 때 호추 ㄹ
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
