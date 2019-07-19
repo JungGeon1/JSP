@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery Ajax Basic</title>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#idchkMsg').html("");
+
+		$('#uId').focusout(function(){
+			$.ajax({
+				url : 'idcheck.jsp',
+				type : 'GET',
+				data : {
+					uId : $('#uId').val()
+				},
+				success : function(data) {
+					alert(data);
+					if (data == 'Y') {
+					/* 	alert("멋진아이디입니다.");
+						$('body').append('<span style="color=blue;">멋진아이이디</span>'); */
+						$('#idchkMsg').html('good id');
+						$('#idchkMsg').css('color','blue');
+					} else {
+					/* 	alert("사용불가");
+						$('body').append('<span style="color=red;">불가능이이디</span>'); */
+						$('#idchkMsg').html('nooo');
+						$('#idchkMsg').css('color','red');
+					}
+					//$('body').append(data);
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+
+	<input type="text" id="uId" value="">
+	<!-- <input type="button" id="btn" value="idcheck"> -->
+	<br>
+	<span id="idchkMsg"></span>
+
+</body>
+</html>

@@ -32,7 +32,7 @@
 		<h3>회원정보 페이지</h3>
 		<c:if test="${loginInfo ne null}">
 			<!--전체데이터 체크용  -->
-		${sessionScope.loginInfo}
+		${loginInfo}
 		<hr>
 
 
@@ -50,6 +50,7 @@
 				alert('로그인 후 이용가능한 페이지 입니다');
 				//스크립트에서 페이지 이동->loaction
 				location.href = 'login.jsp';
+				
 			</script>
 		</c:if>
 

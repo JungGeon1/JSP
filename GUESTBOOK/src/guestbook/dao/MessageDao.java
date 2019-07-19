@@ -54,7 +54,7 @@ public class MessageDao {
 		return rcnt;
 	}
 
-	// db에서 기본키값을 매개로 정보를 가져와 유즈빈에 저장해주는 메소드
+	// db에서 기본키값을 매개로 정보를 가져와 유즈빈에 저장해주는 메소드->delete용
 	public Message select(Connection conn, int messageId) {
 		Message message = new Message();
 		PreparedStatement pstmt = null;
