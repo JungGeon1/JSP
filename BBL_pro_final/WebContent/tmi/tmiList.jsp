@@ -232,7 +232,7 @@
 		/* 	테스트용 */
 		int	loginChk=0;
   		/* 요기다가 아리형 세션을 넣즈아!! */
-		session.setAttribute("userID", "gun2656");
+		
 		if(session.getAttribute("userID")==null){
 			loginChk=1;
 		}

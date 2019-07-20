@@ -69,7 +69,7 @@ input[type=text]{
 
 					}else if (data == 'Y') {
 						alert("새로운 기억으로 글이 변경되었어요!");
-						history.go(-1);
+
 					} else {
 						alert("글번호와 아이디가 일치하지 않아요...다시 생각해주세요..");
 
@@ -110,9 +110,9 @@ input[type=text]{
 	  		<ul class="nav navbar-nav">
 	  			<li><a href="../main.jsp">홈</a></li>
 	  			<li><a href="#">공지사항</a></li>
-	  			<li><a href="#">뿔레?!</a></li>
+	  			<li><a href="../BBL/BBL.jsp">뿔레?!</a></li>
 	  			<li class="active"><a href="tmiList.jsp">잡담게시판</a></li>
-	  			<li><a href="#">광고게시판</a></li>	  			
+	  			<li><a href="../adver/adver_list.jsp">광고게시판</a></li>	  			
 	  		</ul>  		
 	  		<%
 	  			if(userID == null || company_ID == null){
@@ -123,11 +123,11 @@ input[type=text]{
 	  				   data-toggle="dropdown" role="button"
 	  				   aria-haspopup="true" aria-expanded="false">뿔레 가입후에 더 많은 서비스를 즐겨주세요! <span class="caret"></span></a>
 	  				<ul class="dropdown-menu">
-	  					<li><a href="../join.jsp">회원가입</a></li>
-	  					<li><a href="../join_Com.jsp">사업자가입</a></li>
-	  					<li><a href="../login.jsp">회원 로그인</a></li>
-	  					<li><a href="../login_com.jsp">사업자 로그인</a></li>
-	  					<li><a href="../logout.jsp">로그아웃</a></li>	  					
+	  					<li><a href="../member/join.jsp">회원가입</a></li>
+	  					<li><a href="../member/join_Com.jsp">사업자가입</a></li>
+	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
+	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>
+	  					<li><a href="../member/logout.jsp">로그아웃</a></li>	  					
 	  				</ul>   
 	  			</li>
 	  		</ul>
@@ -141,9 +141,9 @@ input[type=text]{
 	  				   data-toggle="dropdown" role="button"
 	  				   aria-haspopup="true" aria-expanded="false">개인회원 로그인중 <span class="caret"></span></a>
 	  				<ul class="dropdown-menu">
-	  					<li><a href="../login.jsp">회원 로그인</a></li>
-	  					<li><a href="../login_com.jsp">사업자 로그인</a></li>	
-	  					<li><a href="../logout.jsp">로그아웃</a></li>  					
+	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
+	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>	
+	  					<li><a href="../member/logout.jsp">로그아웃</a></li>  					
 	  				</ul>   
 	  			</li>
 	  		</ul>

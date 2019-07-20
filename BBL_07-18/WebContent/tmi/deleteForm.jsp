@@ -64,6 +64,7 @@
 				success : function(data) {
 					if (data == 'Y') {
 						alert("삭제되었어요..다음엔 더 멋진 글을 남겨주세요!");
+						history.go(-1);
 
 					} else {
 						alert("글 번호와 아이디가 일치하지 않아요...다시 생각해주세요..");

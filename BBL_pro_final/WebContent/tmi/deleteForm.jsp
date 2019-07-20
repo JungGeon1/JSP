@@ -6,40 +6,43 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 #contents{
-	width: 400px;
-	margin: 0 auto;
-	text-align: center;
-	
+	margin-left: 3%;
+	padding-bottom: 2%;
 }
-
-#photo{
+#show{
+	margin-left: 2%;
+}
+#tId{
+	margin-top: 10px;
+}#photo{
 	position:fixed;
  	bottom: 50px;
     right: 2%;
     width: 80px;
-}.aTag{
- 	font-family: 'Sunflower', sans-serif;
+ }.aTag{
+ 	
+	font-family: 'Sunflower', sans-serif;
 	color: #7f8c8d;
 }
 .aTag:hover{
 	text-decoration:none;
 	text-decoration:blink;
 	color:#2c3e50;
-}
-input[type=text]{
-	height: 50px;
+	
+} #contents {
+	width: 400px;
+	margin: 0 auto;
+	text-align: center;
+	
+}input[type=text]{
+ 	height: 50px;
     width: 400px;	
-}#tContent{
-    height: 300px;
-    width: 400px;	
-}#title{
-	padding-bottom: 20px;
 }#btnBox{
 	margin-top: 20px;
-}
-#show{
+}#title{
+	padding-bottom: 20px;
+}#show{
 	padding-top: 20px;
 }
 
@@ -52,26 +55,18 @@ input[type=text]{
 
 		$('#btn').click(function() {
 			$.ajax({
-				url : 'updateIdCheck.jsp',
+				url : 'deleteIdCheck.jsp',
 				type : 'GET',
 				data : {
 					tId : $('#tId').val(),
-					uId : $('#uId').val(),
-					tTitle: $('#tTitle').val(),
-					tContent: $('#tContent').val()
+					uId : $('#uId').val()
 				},
 				success : function(data) {
-					if (data == 'NT') {
-						alert("제목을 입력하지 않으셨어요.. 집중!");
+					if (data == 'Y') {
+						alert("삭제되었어요..다음엔 더 멋진 글을 남겨주세요!");
 
-					}else if (data == 'NC') {
-						alert("내용을 입력하지 않으셨어요.. 집중!");
-
-					}else if (data == 'Y') {
-						alert("새로운 기억으로 글이 변경되었어요!");
-						history.go(-1);
 					} else {
-						alert("글번호와 아이디가 일치하지 않아요...다시 생각해주세요..");
+						alert("글 번호와 아이디가 일치하지 않아요...다시 생각해주세요..");
 
 					}
 					//$('body').append(data);
@@ -90,7 +85,7 @@ input[type=text]{
 <script src="../js/bootstrap.js"></script>
 </head>
 <body>
-	<header>
+<header>
 		<img src="../img/fork.png" style="width:40px;height:40px; margin-left: 20px;margin-top:-10px;">
         <span style ="color: black; font-size:40px; margin-left: 20px; font-family: 'Sunflower', sans-serif;">뿔레</span>
 	</header>
@@ -102,17 +97,19 @@ input[type=text]{
 			company_ID = (String)session.getAttribute("company_ID");
 		}
 	%>
-	<nav class="navbar navbar-inverse">
+
+	<nav class="navbar navbar-inverse">	
 		<div class="navbar-header">
  		<a class = "navbar-brand" href="#"></a>	
 	  	</div>
+	  	
 	  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  		<ul class="nav navbar-nav">
 	  			<li><a href="../main.jsp">홈</a></li>
-	  			<li><a href="#">공지사항</a></li>
-	  			<li><a href="#">뿔레?!</a></li>
+	  			<li><a href="">공지사항</a></li>
+	  			<li><a href="../BBL/BBL.jsp">뿔레?!</a></li>
 	  			<li class="active"><a href="tmiList.jsp">잡담게시판</a></li>
-	  			<li><a href="#">광고게시판</a></li>	  			
+	  			<li><a href="../adver/adver_list.jsp">광고게시판</a></li>	  			
 	  		</ul>  		
 	  		<%
 	  			if(userID == null || company_ID == null){
@@ -123,11 +120,11 @@ input[type=text]{
 	  				   data-toggle="dropdown" role="button"
 	  				   aria-haspopup="true" aria-expanded="false">뿔레 가입후에 더 많은 서비스를 즐겨주세요! <span class="caret"></span></a>
 	  				<ul class="dropdown-menu">
-	  					<li><a href="../join.jsp">회원가입</a></li>
-	  					<li><a href="../join_Com.jsp">사업자가입</a></li>
-	  					<li><a href="../login.jsp">회원 로그인</a></li>
-	  					<li><a href="../login_com.jsp">사업자 로그인</a></li>
-	  					<li><a href="../logout.jsp">로그아웃</a></li>	  					
+	  					<li><a href="../member/join.jsp">회원가입</a></li>
+	  					<li><a href="../member/join_Com.jsp">사업자가입</a></li>
+	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
+	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>
+	  					<li><a href="../member/logout.jsp">로그아웃</a></li>	  					
 	  				</ul>   
 	  			</li>
 	  		</ul>
@@ -141,9 +138,9 @@ input[type=text]{
 	  				   data-toggle="dropdown" role="button"
 	  				   aria-haspopup="true" aria-expanded="false">개인회원 로그인중 <span class="caret"></span></a>
 	  				<ul class="dropdown-menu">
-	  					<li><a href="../login.jsp">회원 로그인</a></li>
-	  					<li><a href="../login_com.jsp">사업자 로그인</a></li>	
-	  					<li><a href="../logout.jsp">로그아웃</a></li>  					
+	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
+	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>	
+	  					<li><a href="../member/logout.jsp">로그아웃</a></li>  					
 	  				</ul>   
 	  			</li>
 	  		</ul>
@@ -156,42 +153,33 @@ input[type=text]{
 	</nav>
 <br>
 	<div id="contents">
-		<h3 id="title">ID를 입력해주세요!</h3>
-			<div>
-				<input type="text" id="tId"	value="<%=request.getParameter("tmi_ID")%>" readonly>
-			</div>
-			<div>
-				<input placeholder="아이디에요" type="text" id="uId"> <br>
-			</div>
-			<div>
-				<input placeholder="새 제목이에요" type="text" id="tTitle" required><br>
-			</div>
-			<div>
-				<textarea placeholder="새로 떠오른 기억을 적어주세요!" id="tContent"></textarea>
-			</div>
-			<div id="btnBox"> 
-			<input type="button" id="btn" value="변경" class="btn btn-default btn-lg">
+		<h3 id="title">정말..지우실 꺼라면..ID를..</h3>
+		<div>
+			<input type="text" id="tId"	value="<%=request.getParameter("tmi_ID")%>" readonly><br>
+		</div>
+		<div>
+			<input type="text" id="uId" placeholder="ID"><br>
+		</div>
+		<div id="btnBox">
+			<input type="button" id="btn" value="삭제" class="btn btn-default btn-lg">
 			<input type="button" id="cancle" value="취소" class="btn btn-default btn-lg">
-			</div>
-			
-			
-			<div id="show"><a href="tmiList.jsp"  class="aTag">게시글 보러가기</a></div>
+		</div>
+			<div id="show"><a href="tmiList.jsp" id="show" class="aTag">게시글 보러가기</a></div>
 	</div>
-	
+
 	<img id="photo" src="../img/fork.png">
 
-	
 </body>
-	
+
 	<script>
-	 $(document).ready(function () {
-		$('#cancle').click(function () {
-			history.go(-1);
+		$(document).ready(function() {
+			$('#cancle').click(function () {
+				history.go(-1);
+			})
+			
 			
 		})
-	})
 	
 	</script>
-
 
 </html>

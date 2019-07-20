@@ -1,19 +1,69 @@
 <%@page import="tmi.Tmi"%>
 <%@page import="java.util.List"%>
-<%@page import="tmi.TmiDAO"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="org.apache.commons.fileupload.FileItem"%>
+<%@page import="java.io.File"%>
+<%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
+<%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="tmi.TmiDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <%
 	request.setCharacterEncoding("utf-8");
+%>
+<%-- <jsp:useBean id="tmi" class="tmi.Tmi" /> --%>
+<%-- <jsp:setProperty property="*" name="tmi" /> --%>
+<%
+	Tmi tmi = new Tmi();
 
-	TmiDAO dao = TmiDAO.getInstance();
+TmiDAO dao = TmiDAO.getInstance();
 
-	List<Tmi> list = null;
-	list = dao.tmiList();
+	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+	if (isMultipart) {
+
+		String fileName = "";
+		String saveFileName = "";
+		String uploadpath = "/uploadImg";
+		String dir = request.getSession().getServletContext().getRealPath(uploadpath);
+		String fullpath = "";
+
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		List<FileItem> items = upload.parseRequest(request);
+
+		Iterator<FileItem> itr = items.iterator();
+
+		while (itr.hasNext()) {
+	FileItem item = itr.next();
+	if (item.getFieldName().equals("user_ID")) {
+		tmi.setUser_ID(item.getString("utf-8"));
+	}
+	if (item.getFieldName().equals("tmi_Title")) {
+		tmi.setTmi_Title(item.getString("utf-8"));
+	}
+	if (item.getFieldName().equals("tmi_Content")) {
+		tmi.setTmi_Content(item.getString("utf-8"));
+	}
+	if (item.getFieldName().equals("tmi_Photo")) {
+		if (item.getName().length()>0) {
+			fileName = item.getName();
+			saveFileName = System.nanoTime() + "_" + fileName;
+			item.write(new File(dir, saveFileName));
+			fullpath = "../uploadImg/" + saveFileName;
+
+			tmi.setTmi_Photo(fullpath);
+		}
+	}
+
+		}
+
+	}
+
+	int rcnt = dao.insert(tmi);
 %>
 <!DOCTYPE html>
 <html>
@@ -21,75 +71,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-/* div {
-	margin: 20px;
-} */
-
- #contentBox{
- width: 70%;
-}
- #tPhotoBox{
-	display:block;
-	width: 810px;
-	height: 500px;
-	overflow: auto;
-	margin-left: 70px;
-}
-#tPhoto{
-	width: 800px;
-}
-.aTag{
- 	
-	font-family: 'Sunflower', sans-serif;
-	color: #7f8c8d;
-	font-size: 1.2em;
-}
-.aTag:hover{
-	text-decoration:none;
-	text-decoration:blink;
-	color:#2c3e50;
-	
-}
-#make {
-	margin-left: 8%;
-	font-size: 2.5em;
-}
-#map {
-	margin-left: 8%;
-	font-size: 1.3em;
-}
-#contents {
-	margin-left: 10%;
-}
-#main {
-	width:1000px;
-	margin:3%;
-	border: 5px #f1f2f6 solid;
-	padding: 10px;
-}
-.mSpan{
-	font-size: 1.4em;
-	font-weight: 200;
-	padding-right: 5px;
-}
-#photo{
+	#contents{
+	margin-left: 3%;
+	padding-bottom: 2%;
+}	#show{
+	margin-left: 2%;
+}#photo{
 	position:fixed;
  	bottom: 50px;
     right: 2%;
-    width: 90px;
-   }
-#story{
- 	width: 900px;
- } 
- #MOVE_TOP{
-    position: fixed;
-    right: 8%;
-    bottom: 50px;
-    display: none;
-    color: black; 
-    font-size:40px;  
-    font-family: 'Sunflower', sans-serif;
-}
+    width: 80px;
+ 
+} 
+
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
@@ -115,6 +109,7 @@
 			company_ID = (String)session.getAttribute("company_ID");
 		}
 	%>
+
 	<nav class="navbar navbar-inverse">
 		<div class="navbar-header">
  		<a class = "navbar-brand" href="#"></a>	
@@ -169,108 +164,16 @@
 	  	</div>
 	</nav>
 	<br>
-	<a href="tmiForm.jsp" id="make" class="aTag">잡담을 시작해 볼까요?</a>
-	<br>
-	<br>
-	<a href="searchMap.jsp" id="map" class="aTag">어디에 뭐가 있는지 궁금하세요?</a>
-		<div id="contents">
-		<%
-			if (list.isEmpty()) {
-		%>
-		<div>
-			<h3>
-				아직 아무도 글을 남기지 않았어요<br>첫번째 글을 남겨보세요
-			</h3>
-		</div>
-		<%
-			} else {
-		%>
-		<h1><%=dao.totalTmi()%>개의 글이 떠돌고 있어요!</h1>
-		<%
-			for (Tmi tmi : list) {
-		%>
-		<div id="main">
-			<table>
-					
-			<tr>
-				<td><span class="mSpan">글번호</span></td>
-				<td><%=tmi.getTmi_ID()%></td>
-			</tr>
-			<tr>
-				<td><span class="mSpan">작성자</span></td>
-				<td><%=tmi.getUser_ID()%></td>
-			</tr>
-			<tr>
-				<td><span class="mSpan">날 짜</span></td>
-				<td><%=tmi.getTmi_Date()%></td>
-			</tr>
-			<tr>
-				<td><span class="mSpan">제 목</span></td>
-				<td><%=tmi.getTmi_Title()%></td>
-			</tr>	
-				<tr>
-					<td><span class="mSpan">내 용</span></td>
-					<td><div id="story"><%=tmi.getTmi_Content()%></div></td>
-				</tr>
-			</table>
-				<%
-					if (tmi.getTmi_Photo() != null) {
-				%>
-				<span class="mSpan">TMI</span><br> 
-				<span id="tPhotoBox"><img id="tPhoto" src="<%=tmi.getTmi_Photo()%>" class="img-thumbnail"></span> <br>
-			<%
-				}
-			%>
-			<div id="update">
-				<a href="updateForm.jsp?tmi_ID=<%=tmi.getTmi_ID()%>" class="aTag">새로운 기억이 떠올랐어요!</a><br>
-				<a href="deleteForm.jsp?tmi_ID=<%=tmi.getTmi_ID()%>" class="aTag">이 글이 보기 싫어요...</a>
-			</div>
-		</div>
-		<%
-				}
-			}
-		/* 	테스트용 */
-		int	loginChk=0;
-  		/* 요기다가 아리형 세션을 넣즈아!! */
-		session.setAttribute("userID", "gun2656");
-		if(session.getAttribute("userID")==null){
-			loginChk=1;
-		}
-		/* 테스트용끝 */
-		%>
-	
+	<%-- <%=tmi.toString()%>
+ --%>	
+ 	<div id="contents">
+		<h4><%=tmi.getUser_ID()%>님이 작성한
+			<%=rcnt%>개의 이야기가 추가되었어요!
+		</h4>
 	</div>
-		<img id="photo" src="../img/fork.png">
-		<a id="MOVE_TOP" href="#">뿔레</a>
+	<a id="show"  href="tmiList.jsp">게시글 보러가기</a>
+	<img id="photo" src="../img/fork.png">
+
+	
 </body>
-	<script>
-	
-	/* 세션으로 로그인체크 */
-$(document).ready(function(){
-	$(".aTag").click(function(event){
-			if(<%=loginChk%>==1){
-				event.preventDefault();
-				alert("로그인 상태가 아니에요..");
-				}
-		});
-	/* 스크롤 이벤트! */
-	$(window).scroll(function () {
-		if($(this).scrollTop()>500){
-			$('#MOVE_TOP').fadeIn();
-		}else{
-			$('#MOVE_TOP').fadeOut();
-		}
-	});	
-	$('#MOVE_TOP').click(function() {
-		$('html,body').animate({
-			scrollTop :0
-		},400);
-		return false;
-	});
-		
-}) ; 
-	
-	</script>
-
-
 </html>
