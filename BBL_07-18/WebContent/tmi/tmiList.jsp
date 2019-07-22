@@ -1,3 +1,4 @@
+<%@page import="tmiService.ListService"%>
 <%@page import="tmi.Tmi"%>
 <%@page import="java.util.List"%>
 <%@page import="tmi.TmiDAO"%>
@@ -10,10 +11,9 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	TmiDAO dao = TmiDAO.getInstance();
-
-	List<Tmi> list = null;
-	list = dao.tmiList();
+	ListService service= ListService.getInstance();
+	
+	List<Tmi> list=service.tmiList();
 %>
 <!DOCTYPE html>
 <html>
@@ -81,7 +81,7 @@
 #story{
  	width: 900px;
  } 
- #MOVE_TOP{
+#MOVE_TOP{
     position: fixed;
     right: 8%;
     bottom: 50px;
@@ -89,6 +89,9 @@
     color: black; 
     font-size:40px;  
     font-family: 'Sunflower', sans-serif;
+}#fo{
+display: inline;
+
 }
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -106,6 +109,10 @@
 	<header>
 		<img src="../img/fork.png" style="width:40px;height:40px; margin-left: 20px;margin-top:-10px;">
         <span style ="color: black; font-size:40px; margin-left: 20px; font-family: 'Sunflower', sans-serif;">뿔레</span>
+    <form action="searchList.jsp" style="display: inline-block;">
+        <input name="keyword" id="searchText" type="text" placeholder="당신의 게시물을 쉽고 빠르게 찾을 수 있습니다!   게시물 이동 후 검색." style="width:800px; padding:5px;opacity:0.7;background-color:#f1f2f6;border:0px solid black;border-radius:10px;margin:6px;vertical-align:5px;font-family: 'Nanum Gothic', sans-serif;font-size:13px;">
+		<input type="submit" value="" style="width:20px; height:20px; background-color:white;border-radius:50%; border:1px solid black;">
+	</form>
 	</header>
 	<%
 		String userID = null;
@@ -169,7 +176,7 @@
 	  	</div>
 	</nav>
 	<br>
-	<a href="tmiForm.jsp" id="make" class="aTag">잡담을 시작해 볼까요?</a>
+	<a href="tmiForm.jsp" id="make" class="aTag">일상을 전달해 볼까요?</a>
 	<br>
 	<br>
 	<a href="searchMap.jsp" id="map" class="aTag">어디에 뭐가 있는지 궁금하세요?</a>
@@ -185,7 +192,12 @@
 		<%
 			} else {
 		%>
-		<h1><%=dao.totalTmi()%>개의 글이 떠돌고 있어요!</h1>
+			<!--테스트용  -->
+
+		
+		
+	
+		<h1><%=service.count()%>개의 글이 떠돌고 있어요!</h1>
 		<%
 			for (Tmi tmi : list) {
 		%>
@@ -244,7 +256,8 @@
 		<a id="MOVE_TOP" href="#">뿔레</a>
 </body>
 	<script>
-	
+
+
 	/* 세션으로 로그인체크 */
 $(document).ready(function(){
 	$(".aTag").click(function(event){
@@ -253,6 +266,8 @@ $(document).ready(function(){
 				alert("로그인 상태가 아니에요..");
 				}
 		});
+	/*버튼으로 검색하기*/
+ 
 	/* 스크롤 이벤트! */
 	$(window).scroll(function () {
 		if($(this).scrollTop()>500){

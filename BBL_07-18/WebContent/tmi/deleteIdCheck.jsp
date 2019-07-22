@@ -1,3 +1,4 @@
+<%@page import="tmiService.DeleteService"%>
 <%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="tmi.TmiDAO"%>
@@ -9,10 +10,10 @@
 	String tId = request.getParameter("tId");
 	
 	
-	TmiDAO dao=TmiDAO.getInstance();
-	boolean chkResult=dao.idchk(uId, tId);
+	DeleteService service= DeleteService.getInstance();
+	boolean chkResult=service.chkResult(uId, tId);
 	if (chkResult) {
-		dao.deleteTmi(tId);
+		service.deleteTmi(tId);
 		out.print("Y");
 	} else {
 		out.print("N");

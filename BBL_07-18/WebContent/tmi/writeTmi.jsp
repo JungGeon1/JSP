@@ -1,3 +1,4 @@
+<%@page import="tmiService.WriteService"%>
 <%@page import="tmi.Tmi"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
@@ -19,7 +20,8 @@
 <%
 	Tmi tmi = new Tmi();
 
-TmiDAO dao = TmiDAO.getInstance();
+//TmiDAO dao = TmiDAO.getInstance();
+WriteService Service=WriteService.getInstance();
 
 	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 	if (isMultipart) {
@@ -62,8 +64,8 @@ TmiDAO dao = TmiDAO.getInstance();
 		}
 
 	}
-
-	int rcnt = dao.insert(tmi);
+	int rcnt=Service.write(tmi);
+	//int rcnt = dao.insert(tmi);
 %>
 <!DOCTYPE html>
 <html>

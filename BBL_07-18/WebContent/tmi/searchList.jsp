@@ -1,3 +1,5 @@
+<%@page import="javafx.scene.control.Alert"%>
+<%@page import="tmiService.SearchService"%>
 <%@page import="tmiService.ListService"%>
 <%@page import="tmi.Tmi"%>
 <%@page import="java.util.List"%>
@@ -9,12 +11,14 @@
 
 
 <%
-request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("utf-8");
 
-ListService service= ListService.getInstance();
+	SearchService service= SearchService.getInstance();
+	String key=request.getParameter("keyword");
+	List<Tmi> list=service.searchList(key);
 
-List<Tmi> list=service.tmiList();
 %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,19 +93,7 @@ List<Tmi> list=service.tmiList();
     color: black; 
     font-size:40px;  
     font-family: 'Sunflower', sans-serif;
-}.btn_submit{
- 	background-image: url('../img/16s.png');
- 
-    background-repeat: no-repeat;
-    background-color:white;
-    width: 16px;
- 	height:16px;
-    border: 0px;
- 	cursor:pointer;
- 	
 }
- 
-
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
@@ -118,12 +110,6 @@ List<Tmi> list=service.tmiList();
 	<header>
 		<img src="../img/fork.png" style="width:40px;height:40px; margin-left: 20px;margin-top:-10px;">
         <span style ="color: black; font-size:40px; margin-left: 20px; font-family: 'Sunflower', sans-serif;">뿔레</span>
-		<form action="searchList.jsp" style="display: inline-block;">
-        	<input name="keyword" id="searchText" type="text" placeholder="당신의 게시물을 쉽고 빠르게 찾을 수 있습니다!   게시물 이동 후 검색." style="width:800px; padding:5px;opacity:0.7;background-color:#f1f2f6;border:0px solid black;border-radius:10px;margin:6px;vertical-align:5px;font-family: 'Nanum Gothic', sans-serif;font-size:13px;">
-			<!-- <input type="submit" value="" style="width:20px; height:20px; background-color:white;border-radius:50%; border:1px solid black;"> -->
-			<input type="submit" value="" class="btn_submit">
-
-		</form>
 	</header>
 	<%
 		String userID = null;
@@ -187,24 +173,23 @@ List<Tmi> list=service.tmiList();
 	  	</div>
 	</nav>
 	<br>
-	<a href="tmiForm.jsp" id="make" class="aTag">일상을 전달해 볼까요?</a>
+	<a href="tmiList.jsp" id="make" class="aTag">돌아가기</a>
 	<br>
 	<br>
-	<a href="searchMap.jsp" id="map" class="aTag">어디에 뭐가 있는지 궁금하세요?</a>
-
+	
 		<div id="contents">
 		<%
-			if (list.isEmpty()) {
+			if (list==null||list.isEmpty()) {
 		%>
 		<div>
 			<h3>
-				아직 아무도 글을 남기지 않았어요<br>첫번째 글을 남겨보세요
+				아무것도 검색되지 않았어요..
 			</h3>
 		</div>
 		<%
 			} else {
 		%>
-		<h1><%=service.count()%>개의 글이 떠돌고 있어요!</h1>
+		<h1><%=service.sCount(key)%>개의 검색결과가 발견되었어요!</h1>
 		<%
 			for (Tmi tmi : list) {
 		%>
@@ -251,7 +236,7 @@ List<Tmi> list=service.tmiList();
 		/* 	테스트용 */
 		int	loginChk=0;
   		/* 요기다가 아리형 세션을 넣즈아!! */
-		session.setAttribute("userID", "gun2656");
+	
 		if(session.getAttribute("userID")==null){
 			loginChk=1;
 		}

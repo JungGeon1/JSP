@@ -9,11 +9,11 @@
 
 
 <%
-request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("utf-8");
 
-ListService service= ListService.getInstance();
-
-List<Tmi> list=service.tmiList();
+	ListService service= ListService.getInstance();
+	
+	List<Tmi> list=service.tmiList();
 %>
 <!DOCTYPE html>
 <html>
@@ -89,19 +89,19 @@ List<Tmi> list=service.tmiList();
     color: black; 
     font-size:40px;  
     font-family: 'Sunflower', sans-serif;
-}.btn_submit{
- 	background-image: url('../img/16s.png');
- 
+}/* .btn_submit{
+	background-image: url('../img/se.png');
+    background-position:  0px 0px;
     background-repeat: no-repeat;
-    background-color:white;
-    width: 16px;
- 	height:16px;
+    width: 15px;
+   
     border: 0px;
  	cursor:pointer;
- 	
-}
- 
+ 	outline: 0;
+} */#fo{
+display: inline;
 
+}
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
@@ -118,12 +118,11 @@ List<Tmi> list=service.tmiList();
 	<header>
 		<img src="../img/fork.png" style="width:40px;height:40px; margin-left: 20px;margin-top:-10px;">
         <span style ="color: black; font-size:40px; margin-left: 20px; font-family: 'Sunflower', sans-serif;">뿔레</span>
-		<form action="searchList.jsp" style="display: inline-block;">
-        	<input name="keyword" id="searchText" type="text" placeholder="당신의 게시물을 쉽고 빠르게 찾을 수 있습니다!   게시물 이동 후 검색." style="width:800px; padding:5px;opacity:0.7;background-color:#f1f2f6;border:0px solid black;border-radius:10px;margin:6px;vertical-align:5px;font-family: 'Nanum Gothic', sans-serif;font-size:13px;">
-			<!-- <input type="submit" value="" style="width:20px; height:20px; background-color:white;border-radius:50%; border:1px solid black;"> -->
-			<input type="submit" value="" class="btn_submit">
-
-		</form>
+ 	<form action="searchList.jsp" method="post" id="fo">
+        <input name="keyword" id="searchText" type="text" placeholder="당신의 게시물을 쉽고 빠르게 찾을 수 있습니다!   게시물 이동 후 검색." style="width:800px; padding:5px;opacity:0.7;background-color:#f1f2f6;border:0px solid black;border-radius:10px;margin:6px;vertical-align:5px;font-family: 'Nanum Gothic', sans-serif;font-size:13px;">
+      <!--   <input type="submit" value="" class="btn_submit"> -->
+        <input type="submit" value="" class="btn_submit">
+	</form>
 	</header>
 	<%
 		String userID = null;
@@ -191,7 +190,6 @@ List<Tmi> list=service.tmiList();
 	<br>
 	<br>
 	<a href="searchMap.jsp" id="map" class="aTag">어디에 뭐가 있는지 궁금하세요?</a>
-
 		<div id="contents">
 		<%
 			if (list.isEmpty()) {
@@ -204,6 +202,11 @@ List<Tmi> list=service.tmiList();
 		<%
 			} else {
 		%>
+			<!--테스트용  -->
+
+		
+		
+	
 		<h1><%=service.count()%>개의 글이 떠돌고 있어요!</h1>
 		<%
 			for (Tmi tmi : list) {
@@ -263,7 +266,8 @@ List<Tmi> list=service.tmiList();
 		<a id="MOVE_TOP" href="#">뿔레</a>
 </body>
 	<script>
-	
+
+
 	/* 세션으로 로그인체크 */
 $(document).ready(function(){
 	$(".aTag").click(function(event){
@@ -272,6 +276,8 @@ $(document).ready(function(){
 				alert("로그인 상태가 아니에요..");
 				}
 		});
+	/*버튼으로 검색하기*/
+ 
 	/* 스크롤 이벤트! */
 	$(window).scroll(function () {
 		if($(this).scrollTop()>500){

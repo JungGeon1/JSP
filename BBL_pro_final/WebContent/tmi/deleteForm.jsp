@@ -50,30 +50,31 @@
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
-	$(document).ready(function() {
-		$('#idchkMsg').html("");
+$(document).ready(function() {
+	$('#idchkMsg').html("");
 
-		$('#btn').click(function() {
-			$.ajax({
-				url : 'deleteIdCheck.jsp',
-				type : 'GET',
-				data : {
-					tId : $('#tId').val(),
-					uId : $('#uId').val()
-				},
-				success : function(data) {
-					if (data == 'Y') {
-						alert("삭제되었어요..다음엔 더 멋진 글을 남겨주세요!");
+	$('#btn').click(function() {
+		$.ajax({
+			url : 'deleteIdCheck.jsp',
+			type : 'GET',
+			data : {
+				tId : $('#tId').val(),
+				uId : $('#uId').val()
+			},
+			success : function(data) {
+				if (data == 'Y') {
+					alert("삭제되었어요..다음엔 더 멋진 글을 남겨주세요!");
+					location.href='tmiList.jsp';
 
-					} else {
-						alert("글 번호와 아이디가 일치하지 않아요...다시 생각해주세요..");
+				} else {
+					alert("글 번호와 아이디가 일치하지 않아요...다시 생각해주세요..");
 
-					}
-					//$('body').append(data);
 				}
-			});
+				//$('body').append(data);
+			}
 		});
 	});
+});
 </script>
 <link
 	href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap"

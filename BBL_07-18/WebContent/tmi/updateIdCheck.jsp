@@ -1,3 +1,4 @@
+<%@page import="tmiService.UpdateService"%>
 <%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="tmi.TmiDAO"%>
@@ -10,16 +11,16 @@
 	String tTitle = request.getParameter("tTitle");
 	String tContent = request.getParameter("tContent");
 
-	TmiDAO dao = TmiDAO.getInstance();
+	UpdateService service=UpdateService.getInstance();
 
-	boolean chkResult = dao.idchk(uId, tId);
+	boolean chkResult = service.chkResult(uId, tId);
 
 	if (tTitle.isEmpty()) {
 		out.print("NT");
 	} else if (tContent.isEmpty()) {
 		out.print("NC");
 	} else if (!tTitle.isEmpty() && !tContent.isEmpty() && chkResult) {
-		dao.updateTmi(tId, tTitle, tContent);
+		service.updateTmi(tId, tTitle, tContent);
 		out.print("Y");
 	}else {
 		out.print("N");

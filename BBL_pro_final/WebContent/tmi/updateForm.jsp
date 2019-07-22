@@ -47,38 +47,38 @@ input[type=text]{
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
-	$(document).ready(function() {
-		$('#idchkMsg').html("");
+$(document).ready(function() {
+	$('#idchkMsg').html("");
 
-		$('#btn').click(function() {
-			$.ajax({
-				url : 'updateIdCheck.jsp',
-				type : 'GET',
-				data : {
-					tId : $('#tId').val(),
-					uId : $('#uId').val(),
-					tTitle: $('#tTitle').val(),
-					tContent: $('#tContent').val()
-				},
-				success : function(data) {
-					if (data == 'NT') {
-						alert("제목을 입력하지 않으셨어요.. 집중!");
+	$('#btn').click(function() {
+		$.ajax({
+			url : 'updateIdCheck.jsp',
+			type : 'GET',
+			data : {
+				tId : $('#tId').val(),
+				uId : $('#uId').val(),
+				tTitle: $('#tTitle').val(),
+				tContent: $('#tContent').val()
+			},
+			success : function(data) {
+				if (data == 'NT') {
+					alert("제목을 입력하지 않으셨어요.. 집중!");
 
-					}else if (data == 'NC') {
-						alert("내용을 입력하지 않으셨어요.. 집중!");
+				}else if (data == 'NC') {
+					alert("내용을 입력하지 않으셨어요.. 집중!");
 
-					}else if (data == 'Y') {
-						alert("새로운 기억으로 글이 변경되었어요!");
+				}else if (data == 'Y') {
+					alert("새로운 기억으로 글이 변경되었어요!");
+					location.href='tmiList.jsp';
+				} else {
+					alert("글번호와 아이디가 일치하지 않아요...다시 생각해주세요..");
 
-					} else {
-						alert("글번호와 아이디가 일치하지 않아요...다시 생각해주세요..");
-
-					}
-					//$('body').append(data);
 				}
-			});
+				//$('body').append(data);
+			}
 		});
 	});
+});
 </script>
 <link
 	href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap"
