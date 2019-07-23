@@ -109,12 +109,12 @@ $(document).ready(function() {
 	
 <br>
 	<div id="contents">
-		<h3 id="title">정말..지우실 꺼라면..ID를..</h3>
+		<h3 id="title">정말..지우실 꺼라면...</h3>
 		<div>
 			<input type="text" id="tId"	value="<%=request.getParameter("tmi_ID")%>" readonly><br>
 		</div>
 		<div>
-			<input type="text" id="uId" placeholder="ID"><br>
+			<input type="text" id="uId" placeholder="ID" value="<%=session.getAttribute("userID")%>" readonly><br>
 		</div>
 		<div id="btnBox">
 			<input type="button" id="btn" value="삭제" class="btn btn-default btn-lg">

@@ -111,12 +111,12 @@ $(document).ready(function() {
 	
 <br>
 	<div id="contents">
-		<h3 id="title">ID를 입력해주세요!</h3>
+		<h3 id="title">새로운 내용을 입력해 주세요!</h3>
 			<div>
 				<input type="text" id="tId"	value="<%=request.getParameter("tmi_ID")%>" readonly>
 			</div>
 			<div>
-				<input placeholder="아이디에요" type="text" id="uId"> <br>
+				<input placeholder="아이디에요" type="text" id="uId" value="<%=session.getAttribute("userID")%>" readonly> <br>
 			</div>
 			<div>
 				<input placeholder="새 제목이에요" type="text" id="tTitle" required><br>
