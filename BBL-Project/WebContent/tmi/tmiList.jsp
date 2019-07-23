@@ -191,10 +191,10 @@ List<Tmi> list=service.tmiList();
 	
 	
 	<br>
-	<a href="tmiForm.jsp" id="make" class="aTag">일상을 전달해 볼까요?</a>
+	<a href="tmiForm.jsp" id="make" class="aTag" title="글작성">일상을 전달해 볼까요?</a>
 	<br>
 	<br>
-	<a href="searchMap.jsp" id="map" class="aTag">어디에 뭐가 있는지 궁금하세요?</a>
+	<a href="searchMap.jsp" id="map" class="aTag" title="지도">어디에 뭐가 있는지 궁금하세요?</a>
 		<div id="contents">
 		<%
 			if (list.isEmpty()) {
@@ -244,8 +244,8 @@ List<Tmi> list=service.tmiList();
 				}
 			%>
 			<div id="update">
-				<a href="updateForm.jsp?tmi_ID=<%=tmi.getTmi_ID()%>" class="aTag">새로운 기억이 떠올랐어요!</a><br>
-				<a href="deleteForm.jsp?tmi_ID=<%=tmi.getTmi_ID()%>" class="aTag">이 글이 보기 싫어요...</a>
+				<a href="updateForm.jsp?tmi_ID=<%=tmi.getTmi_ID()%>" class="aTag" title="수정하기">새로운 기억이 떠올랐어요!</a><br>
+				<a href="deleteForm.jsp?tmi_ID=<%=tmi.getTmi_ID()%>" class="aTag" title="삭제하기">이 글이 보기 싫어요...</a>
 			</div>
 		</div>
 		<%
@@ -263,7 +263,7 @@ List<Tmi> list=service.tmiList();
 	
 	</div>
 		<img id="photo" src="../img/fork.png">
-		<a id="MOVE_TOP" href="#">뿔레</a>
+		<a id="MOVE_TOP" href="#">TOP</a>
 </body>
 	<script>
 	
