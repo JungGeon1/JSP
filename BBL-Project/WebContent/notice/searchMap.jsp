@@ -3,13 +3,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+<script src="../js/bootstrap.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <style>
-.map_wrap, .map_wrap * {margin:0 auto;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+#con{
+}
+</style>
+</head>
+<body>
+<!----------------- 네비게이션  시작-------------------->
+	<jsp:include page ="/WEB-INF/nav/nav.jsp"/>
+	<script>
+		$(document).ready(function(){
+			$('#notice').addClass('active');
+		});
+	</script>
+<!----------------- 네비게이션  끝------------------------>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a877efa95d50234a67facd1a9b75a349"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a877efa95d50234a67facd1a9b75a349&libraries=LIBRARY"></script>
+    <title>키워드로 장소검색하고 목록으로 표출하기</title>
+    <style>
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:300px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -42,119 +69,25 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-#photo{
+#fork{
 	position:fixed;
  	bottom: 50px;
     right: 2%;
-    width: 80px;
+    width: 90px;
    }
-   
-.aTag{
-	font-family: 'Sunflower', sans-serif;
-	color: #7f8c8d;
-	font-size: 3em;
-	right: 120px;
-}.aTag:hover{
-	text-decoration:none;
-	text-decoration:blink;
-	color:#2c3e50;
-}#aBox{
-	position:fixed;
- 	bottom: 40px;
-    right: 8%;
-  
-}
-
-
 </style>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
-<meta name="viewport" content="width=device-width" initial-scale="1">
-<link
-	href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Orbitron&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
-<script src="../js/bootstrap.js"></script>
 <body>
-
-	<header>
-		<img src="../img/fork.png" style="width:40px;height:40px; margin-left: 20px;margin-top:-10px;">
-        <span style ="color: black; font-size:40px; margin-left: 20px; font-family: 'Sunflower', sans-serif;">뿔레</span>
-	</header>
-	<%
-		String userID = null;
-		String company_ID = null;
-		if (session.getAttribute("userID") != null || session.getAttribute("company_ID") != null){
-			userID = (String)session.getAttribute("userID");
-			company_ID = (String)session.getAttribute("company_ID");
-		}
-	%>
-
-<nav class="navbar navbar-inverse">
-		<div class="navbar-header">
- 		<a class = "navbar-brand" href="#"></a>	
-	  	</div>
-	  	
-	  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	  		<ul class="nav navbar-nav">
-	  			<li><a href="../main.jsp">홈</a></li>
-	  			<li><a href="#">공지사항</a></li>
-	  			<li><a href="../BBL/BBL.jsp">뿔레?!</a></li>
-	  			<li class="active"><a href="tmiList.jsp">잡담게시판</a></li>
-	  			<li><a href="../adver/adver_list.jsp">광고게시판</a></li>	  			
-	  		</ul>  		
-	  		<%
-	  			if(userID == null || company_ID == null){
-	  		%>
-			<ul class="nav navbar-nav navbar-right">
-	  			<li class="dropdown">
-	  				<a href="#" class="dropdown-toggle"
-	  				   data-toggle="dropdown" role="button"
-	  				   aria-haspopup="true" aria-expanded="false">뿔레 가입후에 더 많은 서비스를 즐겨주세요! <span class="caret"></span></a>
-	  				<ul class="dropdown-menu">
-	  					<li><a href="../member/join.jsp">회원가입</a></li>
-	  					<li><a href="../member/join_Com.jsp">사업자가입</a></li>
-	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
-	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>
-	  					<li><a href="../member/logout.jsp">로그아웃</a></li>	  					
-	  				</ul>   
-	  			</li>
-	  		</ul>
-	  		
-	  		<%
-	  			} else {
-	  		%>
-	  		<ul class="nav navbar-nav navbar-right">
-	  			<li class="dropdown">
-	  				<a href="#" class="dropdown-toggle"
-	  				   data-toggle="dropdown" role="button"
-	  				   aria-haspopup="true" aria-expanded="false">개인회원 로그인중 <span class="caret"></span></a>
-	  				<ul class="dropdown-menu">
-	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
-	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>	
-	  					<li><a href="../member/logout.jsp">로그아웃</a></li>  					
-	  				</ul>   
-	  			</li>
-	  		</ul>
-	  		
-			<%
-	  			}
-	
-			%>
-	  		
-	  	</div>
-	</nav>
+<br><br><br>
+<div class="container">
 <div class="map_wrap">
-    <div id="map" style="width:100%;height:600px;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:100%;height:500px;position:relative;overflow:hidden;"></div>
 
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="종각비트캠프" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -162,15 +95,13 @@
         <hr>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
-       </div>
-     
+    </div>
 </div>
- <div id="aBox"><a href="tmiList.jsp" class="aTag">지도는 이제 그만보고 싶어요</a></div>
-<img id="photo" src="../img/fork.png">
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=83c20064cc01d434b441d9ae9303903d&libraries=services"></script>
+</div>
+<img src="../img/fork.png" id="fork">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script>
 <script>
-//마커를 담을 배열입니다
+// 마커를 담을 배열입니다
 var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

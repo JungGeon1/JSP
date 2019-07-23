@@ -80,10 +80,15 @@
 <script src="../js/bootstrap.js"></script>
 <body>
 
-	<header>
-		<img src="../img/fork.png" style="width:40px;height:40px; margin-left: 20px;margin-top:-10px;">
-        <span style ="color: black; font-size:40px; margin-left: 20px; font-family: 'Sunflower', sans-serif;">뿔레</span>
-	</header>
+<!----------------- 네비게이션  시작-------------------->
+	<jsp:include page ="/WEB-INF/nav/nav.jsp"/>
+	<script>
+		$(document).ready(function(){
+			$('#tmi').addClass('active');
+		});
+	</script>
+<!----------------- 네비게이션  끝------------------------>
+	
 	<%
 		String userID = null;
 		String company_ID = null;
@@ -93,60 +98,7 @@
 		}
 	%>
 
-<nav class="navbar navbar-inverse">
-		<div class="navbar-header">
- 		<a class = "navbar-brand" href="#"></a>	
-	  	</div>
-	  	
-	  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	  		<ul class="nav navbar-nav">
-	  			<li><a href="../main.jsp">홈</a></li>
-	  			<li><a href="#">공지사항</a></li>
-	  			<li><a href="../BBL/BBL.jsp">뿔레?!</a></li>
-	  			<li class="active"><a href="tmiList.jsp">잡담게시판</a></li>
-	  			<li><a href="../adver/adver_list.jsp">광고게시판</a></li>	  			
-	  		</ul>  		
-	  		<%
-	  			if(userID == null || company_ID == null){
-	  		%>
-			<ul class="nav navbar-nav navbar-right">
-	  			<li class="dropdown">
-	  				<a href="#" class="dropdown-toggle"
-	  				   data-toggle="dropdown" role="button"
-	  				   aria-haspopup="true" aria-expanded="false">뿔레 가입후에 더 많은 서비스를 즐겨주세요! <span class="caret"></span></a>
-	  				<ul class="dropdown-menu">
-	  					<li><a href="../member/join.jsp">회원가입</a></li>
-	  					<li><a href="../member/join_Com.jsp">사업자가입</a></li>
-	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
-	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>
-	  					<li><a href="../member/logout.jsp">로그아웃</a></li>	  					
-	  				</ul>   
-	  			</li>
-	  		</ul>
-	  		
-	  		<%
-	  			} else {
-	  		%>
-	  		<ul class="nav navbar-nav navbar-right">
-	  			<li class="dropdown">
-	  				<a href="#" class="dropdown-toggle"
-	  				   data-toggle="dropdown" role="button"
-	  				   aria-haspopup="true" aria-expanded="false">개인회원 로그인중 <span class="caret"></span></a>
-	  				<ul class="dropdown-menu">
-	  					<li><a href="../member/login.jsp">회원 로그인</a></li>
-	  					<li><a href="../member/login_com.jsp">사업자 로그인</a></li>	
-	  					<li><a href="../member/logout.jsp">로그아웃</a></li>  					
-	  				</ul>   
-	  			</li>
-	  		</ul>
-	  		
-			<%
-	  			}
-	
-			%>
-	  		
-	  	</div>
-	</nav>
+
 <div class="map_wrap">
     <div id="map" style="width:100%;height:600px;position:relative;overflow:hidden;"></div>
 
@@ -154,7 +106,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="종각비트캠프" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="종로 비트캠프" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
