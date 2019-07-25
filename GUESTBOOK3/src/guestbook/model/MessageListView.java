@@ -2,60 +2,84 @@ package guestbook.model;
 
 import java.util.List;
 
-
-
 public class MessageListView {
+	
+	
 	private int messageTotalCount;
 	private int currentPageNumber;
-	private List<Message>messageList;
+	private List<Message> messageList;
 	private int pageTotalCount;
-	private int messageCountPerpage;
+	private int messageCountPerPage;
 	private int firstRow;
 	private int endRow;
+	
 	public MessageListView(int messageTotalCount, int currentPageNumber, List<Message> messageList,
-			int messageCountPerpage, int firstRow, int endRow) {
-		super();
+			int messageCountPerPage, int firstRow, int endRow) {
+		
 		this.messageTotalCount = messageTotalCount;
 		this.currentPageNumber = currentPageNumber;
 		this.messageList = messageList;
-		this.messageCountPerpage = messageCountPerpage;
+		this.messageCountPerPage = messageCountPerPage;
 		this.firstRow = firstRow;
 		this.endRow = endRow;
-		CalculatePageTotalCount();
+		calcuratePageTotalCount();
 	}
-	private void CalculatePageTotalCount() {
-		if(messageTotalCount==0) {
-			pageTotalCount=0;
-		}else {
-			pageTotalCount=messageTotalCount/messageCountPerpage;
-			if(messageTotalCount%messageCountPerpage>0) {
+
+	private void calcuratePageTotalCount() {
+		
+		if(messageTotalCount == 0) {
+			pageTotalCount = 0;
+		} else {
+			
+			pageTotalCount = messageTotalCount / messageCountPerPage;
+			
+			if( messageTotalCount % messageCountPerPage > 0) {
 				pageTotalCount++;
 			}
+			
 		}
+		
+		
+		
 	}
+
 	public int getMessageTotalCount() {
 		return messageTotalCount;
 	}
+
 	public int getCurrentPageNumber() {
 		return currentPageNumber;
 	}
+
 	public List<Message> getMessageList() {
 		return messageList;
 	}
+
 	public int getPageTotalCount() {
 		return pageTotalCount;
 	}
-	public int getMessageCountPerpage() {
-		return messageCountPerpage;
+
+	public int getMessageCountPerPage() {
+		return messageCountPerPage;
 	}
+
 	public int getFirstRow() {
 		return firstRow;
 	}
+
 	public int getEndRow() {
 		return endRow;
 	}
+	
+	
 	public boolean isEmpty() {
-		return messageTotalCount==0;
+		return messageCountPerPage == 0;
 	}
 	
+	
+	
+	
+	
+	
+
 }
