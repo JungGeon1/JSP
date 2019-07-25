@@ -17,7 +17,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
-	<h4>
+	<%-- <h4>
 		${viewData.messageTotalCount} <br>
 		${viewData.currentPageNumber}<br> 
 		${viewData.currentPageNumber} <br>
@@ -26,16 +26,18 @@
 		${viewData.firstRow} <br> 
 		${viewData.endRow} <br>
 
-	</h4>
-	
+	</h4> --%>
+	<h1>방명록</h1>
+	<div style="text-align:right;"><a href="guestWriteForm">글쓰기</a></div>
 	<c:if test="${viewData.messageTotalCount>0}">
 	
 	<c:forEach items="${viewData.messageList}" var="message">
 		<div>
-		메시지 번호 : ${message.id}<br> 
+		메시지 번호 :${message.id}<br> 
 		손님 이름 :${message.guestName}<br>
 		메시지 :${message.message}<br> 
-		<a href="confirmDeletion.jsp?messageId=${message.id}">삭제하기</a>
+		<a href="guestDelForm?messageId=${message.id}">삭제하기</a>
+		<a href="guestWriteForm">글쓰기</a>
 		</div>
 	
 	

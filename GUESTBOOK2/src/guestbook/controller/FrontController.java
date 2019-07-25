@@ -56,9 +56,10 @@ public class FrontController extends HttpServlet {
 			String serviceClassName=prop.getProperty(command); //서비스 클래스 이름
 			
 			//prop에 있는 클래스 이름으로 인스턴스생성
-			Class serviceclass;
+			
 			try {
-				serviceclass = Class.forName(serviceClassName);
+				//스태틱메소드
+				Class serviceclass = Class.forName(serviceClassName);
 				//객체생성					
 				GuestBookService service= (GuestBookService)serviceclass.newInstance();
 				//commands map에 저장<String, GuestBookService>

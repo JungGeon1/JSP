@@ -3,12 +3,15 @@ package guestbook.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import guestbook.dao.MessageDao;
 import guestbook.model.Message;
 import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
 
-public class DeleteMessageService {
+public class DeleteMessageService implements GuestBookService{
 
 	private DeleteMessageService() {
 	}
@@ -69,6 +72,47 @@ public class DeleteMessageService {
 		}
 
 		return resultCnt;
+	}
+
+	@Override
+	public String getViewName(HttpServletRequest request, HttpServletResponse response) {
+		String viewPage="/WEB-INF/view/delete.jsp";
+		
+		int messageId=Integer.parseInt(request.getParameter("messageId"));
+		String password=request.getParameter("password");
+		
+		boolean chk=false;
+		
+		int resultCnt=0;
+		
+		String msg="";
+		
+		
+		
+		
+		try {
+			resultCnt=deleetMessage(messageId, password);
+			chk=true;
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+			msg=e.getMessage();
+		} catch (MessageNotFoundException e) {
+			
+			e.printStackTrace();
+			msg=e.getMessage();
+		} catch (InvalidMessagePasswordException e) {
+		
+			e.printStackTrace();
+			msg=e.getMessage();
+		}
+		
+		//뷰 페이지와 결과 데이터를 전달
+		request.setAttribute("chk", chk);
+		request.setAttribute("resultCnt", resultCnt);
+		request.setAttribute("msg", msg);
+		
+		return viewPage;
 	}
 
 }
