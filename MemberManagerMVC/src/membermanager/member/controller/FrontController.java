@@ -1,4 +1,4 @@
-package guestbook.controller;
+package membermanager.member.controller;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,19 +17,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import guestbook.service.GuestBookService;
+import org.apache.commons.fileupload.FileUploadException;
+
+import membermanager.member.service.MemberService;
 
 
 @WebServlet(
-		urlPatterns = { "/" }, 
+		urlPatterns = { "*.do" }, 
 		initParams = { 
 				@WebInitParam(name = "config", 
 						value = "/WEB-INF/commandService.propertise")
 		})
 public class FrontController extends HttpServlet {
 	
-	private Map<String , GuestBookService> commands = 
-			new HashMap<String, GuestBookService>();
+	private Map<String , MemberService> commands =  new HashMap<String, MemberService>();
        
  
 	public void init(ServletConfig config) throws ServletException {
@@ -65,10 +66,12 @@ public class FrontController extends HttpServlet {
 			try {
 				Class serviceClass = Class.forName(serviceClassName);
 				// 객체 생성
-				GuestBookService service = (GuestBookService) serviceClass.newInstance();
+				MemberService service = (MemberService) serviceClass.newInstance();
 				
 				// commands Map 에 저장 <String, GuestBookService>
 				commands.put(command, service);
+				
+				System.out.println(command + " : " + service );
 				
 				
 			} catch (ClassNotFoundException e) {
@@ -114,9 +117,14 @@ public class FrontController extends HttpServlet {
 		
 		String viewPage = "/WEB-INF/view/null.jsp";
 		
-		GuestBookService service = commands.get(commandUri); // null 값을 반환하기도 한다.
+		MemberService service = commands.get(commandUri); // null 값을 반환하기도 한다.
 		if(service != null) {
-			viewPage = service.getViewName(request, response);
+			try {
+				viewPage = service.getViewName(request, response);
+			} catch (FileUploadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -126,8 +134,17 @@ public class FrontController extends HttpServlet {
 		dispatcher.forward(request, response);
 		
 		
+		
+		
+		
 	}
 
+	
+	
+	
+	
+	
+	
 	
 	
 	

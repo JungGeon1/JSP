@@ -1,12 +1,17 @@
+<%@page import="membermanager.service.GetListService"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="member.UserInfo"%>
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	/*어플리케이션에 올라가있는 맵상태로 저장되어있는 키값들을 가져와서 이너머!레이션에 저장해준다. */
-	Enumeration<String> e = application.getAttributeNames();
+	 
 	/*  저장된 레이션을 다시 어플리케이션의 올려준다 -> 사용하기위해*/
-	application.setAttribute("mListName", e);
+	GetListService service=new GetListService();
+	List<UserInfo> list=service.gListService();
+
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -23,27 +28,8 @@
 	padding: 0;
 }
 
-.sumail {
-	height: 25px;
-	margin: 2px;
-}
-
-table {
-	width: 80%;
-	margin: 0 auto;
-	border: 0;
-	border-collapse: collapse;
-}
-
-td {
-	padding: 3px;
-	border: 1px solid #aaa;
-}
-
-table tr:first-child>td {
-	text-align: center;
-	background-color: #eee;
-	font-weight: bold;
+#main{
+margin-top: 5%;
 }
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -59,10 +45,50 @@ table tr:first-child>td {
 
 	<!-- 컨텐츠 시작 -->
 	<div id="contents">
+	
 		<h3>회원리스트</h3>
 		<hr>
+		<%if(list!=null){ %>
+	<div id="main">
+		<%for(UserInfo info: list ){%>
+		
+		idx:<%=info.getIdx() %><br>
+		아이디: <%=info.getuId() %><br>
+		비밀번호:<%=info.getuPw() %><br>
+		이름:<%=info.getuName()%><br>
+		사진:<%=info.getuPhoto()%><br>
+		날짜:<%=info.getRegdate()%><br>
+		
+	<%	}
+	}%>
+		
+	<h1>여기서부터는 for each</h1>
+	</div>
+		
+<!-- 	private String idx;
+	private String uId;
+	private String uPw;
+	private String uName;
+	private String uPhoto;
+	private Date regdate; -->
+	<c:set var="list" value="<%=list %>"/>	
+	<c:forEach items="${list}" var="user">
+		<div>
+		 ${user}<br>
+		 idx: ${user.idx}<br> 
+		 uId:${user.uId}<br>
+		 uPw :${user.uPw}<br> 
+		 uName :${user.uName}<br>
+		 uPhoto :${user.uPhoto}<br>
+		 date :${user.regdate}<br>
+	
+		</div>
+	</c:forEach>
+		
+		
+		
 
-		<table>
+		<%-- <table>
 			<tr>
 				<td>순번</td>
 				<td>아이디</td>
@@ -92,7 +118,7 @@ table tr:first-child>td {
 					</tr>
 				</c:if>
 			</c:forEach>
-		</table>
+		</table> --%>
 
 	</div>
 	<!-- 컨텐츠 끝 -->
