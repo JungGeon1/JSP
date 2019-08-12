@@ -1,3 +1,7 @@
+<%@page import="membermanager.service.LoginProcessService"%>
+<%@page import="membermanager.dao.MemeberDao"%>
+<%@page import="jdbc.ConnectionProvider"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="member.UserInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -28,7 +32,13 @@
 		
 			response.sendRedirect(request.getContextPath()); // /mm
 		} */
-		UserInfo userInfo = (UserInfo) application.getAttribute(userId);
+		Connection conn=null;
+		conn=ConnectionProvider.getConnection();
+		MemeberDao dao=MemeberDao.getInstance();
+		LoginProcessService service=new LoginProcessService();
+		
+		//UserInfo userInfo = dao.Select(conn, userId);
+		UserInfo userInfo = service.lpService(userId);
 
 		if (userInfo != null && userInfo.getuPw().equals(userPW)) {
 			//회원정보가존재&&비밀번호가 일치

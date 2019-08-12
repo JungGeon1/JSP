@@ -3,6 +3,7 @@ package member;
 import java.util.Date;
 
 public class UserInfo {
+	private String idx;
 	private String uId;
 	private String uPw;
 	private String uName;
@@ -13,8 +14,9 @@ public class UserInfo {
 		this.regdate=new Date();
 	}
 
-	public UserInfo(String uId, String uPw, String uName, String uPhoto) {
+	public UserInfo(String idx, String uId, String uPw, String uName, String uPhoto) {
 		super();
+		this.idx=idx;
 		this.uId = uId;
 		this.uPw = uPw;
 		this.uName = uName;
@@ -24,6 +26,14 @@ public class UserInfo {
 
 	public String getuId() {
 		return uId;
+	}
+
+	public String getIdx() {
+		return idx;
+	}
+
+	public void setIdx(String idx) {
+		this.idx = idx;
 	}
 
 	public void setuId(String uId) {
@@ -54,12 +64,16 @@ public class UserInfo {
 		this.uPhoto = uPhoto;
 	}
 
-	@Override
-	public String toString() {
-		return "UserInfo [uId=" + uId + ", uPw=" + uPw + ", uName=" + uName + ", uPhoto=" + uPhoto + "]";
-	}
+
+	
 //memberinfo객체->loginInfo 개겣반환
 	
+	@Override
+	public String toString() {
+		return "UserInfo [idx=" + idx + ", uId=" + uId + ", uPw=" + uPw + ", uName=" + uName + ", uPhoto=" + uPhoto
+				+ ", regdate=" + regdate + "]";
+	}
+
 	public Date getRegdate() {
 		return regdate;
 	}

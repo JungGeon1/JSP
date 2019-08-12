@@ -7,10 +7,10 @@
 		<li><a href='<c:url value="/"/>'>홈</a></li>
 		<li><a href='<c:url value="/member/login.jsp"/>'>로그인</a></li>
 		<li><a href='<c:url value="/member/memberRegForm.jsp"/>'>회원가입</a></li>
-		<li><a href='<c:url value="/member/myPage.jsp"/>'>마이페이지</a></li>
-		<li><a href='<c:url value="/member/myPage2.jsp"/>'>마이페이지2</a></li>
-		<li><a href='<c:url value="/member/memberlist.jsp"/>'>회원리스트</a></li>
-		<li><a href='<c:url value="/member/memberlist2.jsp"/>'>회원리스트2</a></li>
+		<%-- <li><a href='<c:url value="/member/myPage.jsp"/>'>마이페이지</a></li> --%>
+		<li><a href='<c:url value="/member/myPage2.jsp"/>'>마이페이지</a></li>
+	<%-- 	<li><a href='<c:url value="/member/memberlist.jsp"/>'>회원리스트</a></li> --%>
+		<li><a href='<c:url value="/member/memberlist2.jsp"/>'>회원리스트</a></li>
 		<li><a href='<c:url value="/member/logout.jsp"/>'>로그아웃</a></li>
 
 	</ul>

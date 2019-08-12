@@ -1,3 +1,9 @@
+<%@page import="membermanager.service.InsertService"%>
+<%@page import="jdbc.ConnectionProvider"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -13,12 +19,11 @@
     if(userInfo.getuPhoto()==null){
     	userInfo.setuPhoto("NoImage.png");
     }
-    
-    //내장객체에 회원정보를 저장-> 아이디를 키값으로 하는 전체정보를 저장
-    application.setAttribute(userInfo.getuId(), userInfo);
- 
-    
-    %>
+    int resultcnt=0;
+    //커네션 
+  	InsertService service =new InsertService();
+    resultcnt = service.insert(userInfo);
+	%>
     
 <!DOCTYPE html>
 <html>
@@ -50,9 +55,10 @@
 	<h3>회원가입 페이지</h3>
 	<hr>
 	
- <%= userInfo.makeHtmlDiv() %>
+
 <!-- el표현식으로 변환 -->
 	${userInfo.makeHtmlDiv()}<br>
+	<%=resultcnt%>개의 행이 추가되었습니다	
 
 </div>
 <!-- 컨텐츠 끝 -->
